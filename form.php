@@ -16,7 +16,7 @@ class form{
 		'input' 	=> "<input{type}{id}{name}{value}{class}{style} />",
 		'select' 	=> "<select{type}{id}{name}{class}{style}>{html}{text}{options}</select>",
 		'textarea' 	=> "<textarea{type}{id}{name}{class}{style}>{html}{text}</textarea>",
-		'options' 	=> "<option{id}{value}{class}{style}>{option}</option>\n"
+		'options' 	=> "<option{id}{value}{class}{style}>{option}</option>"
 	);
 
 	protected $_noAttribute = array(
@@ -29,13 +29,6 @@ class form{
 	protected $_isArray = array(
 		"options" => "options"
 	);
-
-
-	/*$this->element('input', array(
-			'id' => 'name',
-			'name' => 'name',
-			'value' => 'YourName'
-	))*/
 	
 	public function label($label){
 		$this->_label = $label;
@@ -66,16 +59,28 @@ class form{
 	protected function attributes(array $array){
 		$attributesArray = array(); 
 
-		//print_r( $array );
-
 		foreach($array as $attr => $val ){
-			
 			if( !in_array($attr, $this->_noAttribute) ){
 				$attributesArray[$attr] = " ".$attr . '="' . $val . '"';
+			}else{
+				if( is_array( $val ) ){
+					$attributesArray[$attr] = $this->parseList($this->_html[$attr], $val);
+				}else{
+					$attributesArray[$attr] = $val;
+				}
 			}
 		}
 
 		return $attributesArray;
+	}
+
+	public function parseList($template, array $array){
+		$newArray = array();
+		foreach($array as $key => $ar){
+			$newArray[] = $this->parseString($template, $this->attributes($ar));
+		}
+
+		return implode("\n", $newArray);
 	}
 
 	public function parseString($template, array $array){
