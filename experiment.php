@@ -18,6 +18,17 @@
 	  
     protected $_start;
     protected $_ends;
+    
+    public function
+    
+    private function calcDateStart(){
+    	return date('Y-m-d H:i:s', mktime(0,0,0,$this->_month, 1, $this->_year));
+    }
+    
+    private function calcDateEnds(){
+    	$maxDaysInMonth = date('t', $this->_timestamp);
+    	return date('Y-m-d H:i:s', mktime(0,0,0,$this->_month, $maxDaysInMonth, $this->_year));
+    }
  	
     public function getTemplate($tpl)
     {
