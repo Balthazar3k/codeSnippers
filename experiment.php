@@ -18,17 +18,23 @@
 	  
     protected $_start;
     protected $_ends;
- 
-    private function getHtml($engine)
+ 	
+    public function getTemplate($tpl)
     {
-      $engine = '\\Calendar\\Plugins\\Engines\\'.ucfirst($engine);
-      $this = new $engine();
+      	$tpl = '\\Calendar\\Plugins\\Templates\\'.ucfirst($tpl);
+      	$obj = new $tpl();
+      	return $obj;
     }
+    
  }
  
  class Eventplaner {
-    public function getEventplaner()
+ 	
+ 	protected $_key = 'Eventplaner';
+ 	
+    public function __construct()
     {
+    	
     }
  }
 ?>
