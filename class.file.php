@@ -5,27 +5,17 @@
  *	2014 Wiesbaden
 */
 
-$file = new fileSaver;
+$streets = file_get_contents('streetsWiesbaden');
 
-$file->path('cache/streets.json')->set(
-	array(
-	
-		"strasse" => array(
-			"Am Sportplatz",
-			"Trompeterstraße",
-			"Niedernhausener Str.",
-			"Wilhelmstr.",
-			"Wolfram-von-Eschenbach-Str.",
-			"Otto-Wallach-Str.",
-			"Carl-von-Linden-Str.",
-			"Äppelalle"
-		),
-		
-		"hsnr" => array(
-			18
-		)
-	)
-);
+$streets = explode("\n", $streets);
+array_walk($streets, function(&$item){
+	$item = trim($item);	
+});
+
+$file = new fileSaver;
+$file->path('cache/streets.json')->set($streets);
+
+
 
 $file->path('cache/test/streets.json')->push(array(
 	"Sonnenberger Straße."
