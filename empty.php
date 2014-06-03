@@ -59,3 +59,5 @@ for( $i=1; $i<$maxPages+1; $i++) {
 print_r($pages);
 ?></pre><?php
 ?>
+
+DU LAPPEN
